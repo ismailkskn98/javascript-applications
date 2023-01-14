@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Todo List</title>
+    <style>
+        body{
+            background-color: #2a2a2a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .baslik{
+            color:white;
+        }
+        .container{
+            margin-top: 15%;
+            text-align: center;
+        }
+        .container form-items{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn{
+            padding: 0.4rem;
+            border-radius: 15%;
+            border:0;
+            font-size: 15px;
+            margin: 5px;
+            vertical-align: center;
+            cursor: pointer;
+        }
+        .form-item{
+            padding: 0.4rem;
+            border: 0;
+            border-radius: 3%;
+            outline: none;
+            vertical-align: center;
+        }
+        #addToDo{
+            background-color: #ab0000;
+            color: white;
+        }
+        #clearToDo{
+            background-color: yellowgreen;
+            color: white;
+        }
+        .paragraph_style{
+            color: white;
+            font-size: 20px;
+            text-transform: capitalize;
+            cursor: pointer;
+        }
+        .todoList{
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="baslik">
+            <h1>To Do List</h1>
+        </div>
+        <div class="form-items">
+            <form>
+                <input class= "form-item" type="text" id="inputText">
+                <button type="submit" class="btn" id="addToDo">Add</button>
+                <button type="submit" class="btn" id="clearToDo">Clear</button>
+            </form>
+        </div>
+        <div class="todoList">
+
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

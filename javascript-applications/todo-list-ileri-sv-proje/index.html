@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <title>Javascript Todo List Projesi (ileri sv)</title>
+</head>
+<body>
+
+    <!-- My todo list head tag START -->
+    <header>
+        <h1>My Todo List</h1>
+    </header>
+    <!-- My todo list head tag END -->
+
+    <!-- My todo list main tag Start -->
+    <form action="#">
+        <div class="search">
+            <input type="text" class="todoInput" placeholder="Add..">
+            <button type="submit" id="addBtn"><i class="bi bi-plus-circle"></i></button>
+        </div>
+        <div class="select">
+            <select name="todo" class="filter-todo">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="uncompleted">Uncompleted</option>
+            </select>
+        </div>
+    </form>
+
+    <div class="todo-container">
+        <ul class="todoList"></ul>
+    </div>
+    <!-- My todo list main tag END -->
+
+    <!-- Alert box START -->
+    <div class="alert-wrapper">
+        <div class="alert-success">
+            <div>Başarıyla eklendi.</div>
+        </div>
+        <div class="alert-warning">
+            <div>Input alanı boş geçilemez!</div>
+        </div>
+    </div>
+    <!-- Alert box END -->
+
+    <script src="app.js"></script>
+</body>
+</html>
