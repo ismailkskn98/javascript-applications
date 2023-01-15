@@ -36,22 +36,41 @@ let models = [
     }
 ];
 
-//slider control
+//! slider control
 let index = 0;
-let sliderCount = models.length;
-showSlide(index);
+let randomStopStart;
+let sliderCount = models.length; // 5
+let settings = {
+    random: false,
+    duration: 1000,
+};
+randomSlider(settings);
 
 //! Events
+cardImg.addEventListener("mouseenter", stopRandom);
+cardImg.addEventListener("mouseleave", startRandom);
 leftBtn.addEventListener("click", dragLeft);
+leftBtn.addEventListener("mouseenter", stopRandom);
+leftBtn.addEventListener("mouseleave", startRandom);
 rightBtn.addEventListener("click", dragRight);
-
+rightBtn.addEventListener("mouseenter", stopRandom);
+rightBtn.addEventListener("mouseleave", startRandom);
 
 //! function
+
+// stop random
+function stopRandom(){
+    clearInterval(randomStopStart);
+}
+// start random
+function startRandom(){
+    randomSlider(settings);
+}
 
 //show slider
 function showSlide(i){
 
-    //slider control 2
+    //buttons control
     index = i;
     if(index < 0){
         // index değeri 0'ın altına inerse sıranın sonundan devam et
@@ -61,6 +80,7 @@ function showSlide(i){
         // index değeri "Car information" array'ın uzunluğunu aşarsa sırası başına dön
         index = 0;
     }
+    //buttons control
 
     //img
     cardImg.setAttribute("src", models[index].image);
@@ -68,6 +88,30 @@ function showSlide(i){
     cardTitle.innerHTML = models[index].name;
     //card link
     cardLink.setAttribute("href",models[index].link);
+}
+
+// random slider 
+function randomSlider(settings){
+    let prev;
+    randomStopStart = setInterval(function() {
+        if(settings.random){
+            //random index
+            do {
+                index = Math.floor(Math.random() * sliderCount);
+            } while (index == prev);
+            prev = index;
+            // console.log(index);
+        }
+        else{
+            if(sliderCount == index + 1){
+                index = -1;
+            }
+            showSlide(index);
+            console.log(index);
+            index ++;
+        }
+        showSlide(index);
+    }, settings.duration);
 }
 
 // buttons
