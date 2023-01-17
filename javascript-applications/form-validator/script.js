@@ -1,9 +1,9 @@
 //! Selectors
-const form = document.querySelector("#form");
-const userName = document.querySelector("#username");
-const eMail = document.querySelector("#email");
-const password = document.querySelector("#password");
-const rePassword = document.querySelector("#repassword");
+const form = document.getElementById('form');
+const username = document.getElementById('username');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const repassword = document.getElementById('repassword');
 
 //! Events
 form.addEventListener("submit", validation);
@@ -11,68 +11,43 @@ form.addEventListener("submit", validation);
 //! function
 
 //error
-function error(input, message){
-    input.classList.add("is-invalid");
-    input.nextElementSibling.innerHTML = "Lütfen en az 7 karakter giriniz";
+function error(input, message) {
+    input.className = 'form-control is-invalid';
     const div = input.nextElementSibling;
     div.innerText = message;
-    div.classList.add("invalid-feedback");
+    div.className = 'invalid-feedback';
 }
 //success
-function success(input){
-    input.classList.add("is-valid");
+function success(input) {
+    input.className = 'form-control is-valid';
 }
 // eMail control (true veya false döner)
-const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-//validation (controls)
+function checkEmail(input) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   
+    if(re.test(input.value)) {
+        success(input);
+    } else {
+        error(input, 'hatalı bir mail adresi');
+    }
+}
+
+//checkRequired
+function checkRequired(inputs) {
+    inputs.forEach(function(input) {
+        if(input.value === '') {
+            error(input, `${input.id} is required.`);
+        } else {
+            success(input);
+        }
+    });  
+}
+
+//validation
 function validation(e){
     e.preventDefault();
+    checkRequired([username,email,password,repassword]);
+    checkEmail(email);
 
-    // username
-    if(userName.value.trim() == ""){
-        // invalid (geçersiz)
-        error(userName, "Lütfen en az 7 karakter giriniz");
-    }else{
-        // valid (geçerli)
-        success(userName);
-    }
-
-    // eMail
-    if(eMail.value.trim() == ""){
-        // invalid (geçersiz)
-        error(eMail, "Lütfen mail adresinizi istenen şekilde doldurunuz");
-    }
-    else if (!(validateEmail(eMail.value))){
-        error(eMail, "Düzgün bir mail adresi giriniz");
-    }
-    else{
-        // valid (geçerli)
-        success(eMail);
-    }
-
-    // password
-    if(password.value.trim() == ""){
-        // invalid (geçersiz)
-        error(password, "Lütfen en az 8 karakterli bir şifre belirleyiniz");
-    }else{
-        // valid (geçerli)
-        success(password);
-    }
-
-    // rePassword
-    if(rePassword.value.trim() == ""){
-        // invalid (geçersiz)
-        error(rePassword, "Belirlediğiniz şifreyle uyuşmuyor");
-    }else{
-        // valid (geçerli)
-        success(rePassword);
-    }
-
-}
+};
 
