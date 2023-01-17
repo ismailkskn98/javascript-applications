@@ -4,6 +4,7 @@ const username = document.getElementById('username');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const repassword = document.getElementById('repassword');
+const phone = document.querySelector("#phone");
 
 //! Events
 form.addEventListener("submit", validation);
@@ -43,12 +44,47 @@ function checkRequired(inputs) {
     });  
 }
 
+//character length
+function checkLength(input, min, max){
+    if(input.value.length < min){
+        error(input, `${input.id} en az ${min} karakter giriniz`);
+    }
+    else if(input.value.length > max){
+        error(input, `${input.id} en fazla ${max} karakter giriniz`);
+    }
+    else{
+        success(input);
+    }
+}
+
+//check password
+function checkpassword(input1, input2){
+    if(input1.value === input2.value){
+        success(input2);
+    }else{
+        error(input2, "lütfen password alanıyla aynı değeri giriniz");
+    }
+}
+
+//check phone
+function checkPhone(input){
+    let exp = /^\d{10}$/;
+    if(!(exp.test(input.value))){
+        error(input, "Telefon 10 karakterli olmalıdır.");
+    }else{
+        success(input);
+    }
+}
+
 //validation
 function validation(e){
     e.preventDefault();
-    checkRequired([username,email,password,repassword]);
+    checkRequired([username,email,password,repassword,phone]);
     checkEmail(email);
-
+    checkLength(username, 7,15);
+    checkLength(email, 19,45);
+    checkLength(password, 8,16);
+    checkLength(repassword, 8,16);
+    checkpassword(password, repassword);
+    checkPhone(phone);
 };
-
-
