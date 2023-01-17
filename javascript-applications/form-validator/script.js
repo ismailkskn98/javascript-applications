@@ -30,7 +30,7 @@ function checkEmail(input) {
     } else {
         error(input, 'hatalı bir mail adresi');
     }
-}
+} 
 
 //checkRequired
 function checkRequired(inputs) {
@@ -50,4 +50,5 @@ function validation(e){
     checkEmail(email);
 
 };
+
 
