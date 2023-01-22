@@ -25,39 +25,38 @@ function updateDisplay() {
 // hangi buttona basıyoruz o değeri çekip üzerinde işlem yapıcağız
 function elementValues(e) {
     element = e.target;
+    const value = element.value;
     //element'i button olanları seçicez
     // matches : ulaşmış olduğumuz element'in button olup olmadığını veya neyi arıyosak olup olmadığını kontrol eder
     if (!(element.matches('button'))) return;
-    //  ulaşmış olduğumuz element button ise aşağıdaki kodları çalıştır
-    // button'un class'ı operator olanlar
-    if (element.classList.contains('operator')) {
-        // kullanıcıdan aldığımız operatore göre işlem yapalım
-        hangiOperator(element.value);
-        updateDisplay();
-        return;
-    }
-    // button'un class'ı decimal olan
-    else if (element.classList.contains('decimal')) {
-        // decimal'e tıkladığımızda sayının sonuna nokta ekleyeceğiz
-        decimal();
-        // değişen displayValue değişkenini tekrar çağırmamız gerekiyor güncellenmesi için
-        updateDisplay();
-        return;
-    }
-    // button'un class'ı clear olan
-    else if (element.classList.contains('clear')) {
-        // input alanını temizleyelim
-        inputClear();
-        // değişen displayValue değişkenini tekrar çağırmamız gerekiyor güncellenmesi için
-        updateDisplay();
-        return;
+
+    switch (value) {
+        // operator buttons
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '=':
+            // kullanıcıdan aldığımız operatore göre işlem yapalım
+            hangiOperator(value);
+            break;
+
+        case '.': // decimal button
+            // decimal'e tıkladığımızda sayının sonuna nokta ekleyeceğiz
+            decimal();
+
+            break;
+
+        case 'clear': // clear button
+            // input alanını temizleyelim
+            inputClear();
+            break;
+
+        default: // number
+            // girdiğimiz number değeri input alanında göstermek
+            inputNumber(value);
     }
 
-    // yukardakiler değilse tıklanmış olan button number'dır
-    // console.log(element.value);
-
-    // girdiğimiz number değeri input alanında göstermek
-    inputNumber(element.value);
     // değişen displayValue değişkenini tekrar çağırmamız gerekiyor güncellenmesi için
     updateDisplay();
 }
