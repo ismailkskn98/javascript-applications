@@ -110,7 +110,8 @@ function hangiOperator(girilenOperator) {
         // operator ile işlem yapalım (eşittir)
         const result = calculate(firstValue, value, operator);
 
-        displayValue = String(result);
+        displayValue = `${parseFloat(result.toFixed(7))}`;
+        console.log(typeof displayValue);
         // çıkan sonucu tekrar firstValue'nun içine yedekliyoruz ki işlem yapmaya devam edebilelim
         firstValue = result;
     }
