@@ -41,6 +41,21 @@ UI.prototype.deleteCourse = function (element) {
     }
 }
 
+UI.prototype.showAlert = function (message, alertType) {
+    let alert = document.createElement('div');
+    alert.className = `alert alert-${alertType}`;
+    alert.role = 'alert';
+    alert.innerHTML = message;
+    const row = document.querySelector('.row');
+    // insertBefore(yeni, hedef) =  methodu, bir düğümü çocuk olarak, belirttiğiniz mevcut bir çocuğun hemen önüne ekler.
+    // insertAdjacentElement(position, element) =Method, belirli bir konuma, belirtilen elemanı ekler
+    row.insertAdjacentElement('beforebegin', alert);
+
+    setTimeout(() => {
+        document.querySelector('.alert').remove();
+    }, 2500)
+}
+
 document.querySelector('#new-course').addEventListener('submit',
     function (e) {
 
@@ -55,11 +70,20 @@ document.querySelector('#new-course').addEventListener('submit',
         // create ui object
         const ui = new UI();
 
-        // add course to list
-        ui.addCourseToList(course);
+        if (title === '' || instructor === '' || image === '') {
 
-        // clear controls
-        ui.clearControls();
+            ui.showAlert('Please complete the form', 'warning');
+
+        } else {
+
+            // add course to list
+            ui.addCourseToList(course);
+
+            // clear controls
+            ui.clearControls();
+
+            ui.showAlert('The course has been added', 'success');
+        }
 
         // turn off refresh
         e.preventDefault();
@@ -69,4 +93,5 @@ document.querySelector('#new-course').addEventListener('submit',
 document.querySelector('#course-list').addEventListener('click', function (e) {
     const ui = new UI();
     ui.deleteCourse(e.target);
+    ui.showAlert('The course has been deleted', 'danger');
 });
