@@ -57,6 +57,58 @@ class UI {
     }
 };
 
+// Local Storage
+class Storage {
+    // Static metotlar ES6 ile gelen özelliklerden biridir. Normalde bir class içindeki metot ya da özelliklere ulaşmak istiyorsak new classAdı() şeklinde yeni bir sınıf örneği oluşturup bu sınıf örneği üzerinden istediğimiz özelliklere ulaşabiliyoruz. Static metotlar bize new anahtar kelimesini kullanmadan sınıfAdı.ozellik şeklinde objesiz ulaşabilme imkanı sağlar.
+    // Bazı metotları herhangi bir obje oluşturmadan sadece isim ile ulaşılsın isteyebiliriz örneğin Math.pow() fonksiyonu Math sınıfı içinde yazılmış static bir metottur ama biz pow fonksiyonunu new Math() şeklinde bir obje oluşturup kullanmıyoruz, bu gibi durumlarda yapmamız gereken şey fonksiyonun başına static kelimesini yazmaktır.
+
+    // storage'den gelen veriler
+    static getCourses() {
+        let courses;
+
+        // Controls
+        if (localStorage.getItem('courses') == null) {
+            courses = [];
+        } else {
+            courses = JSON.parse(localStorage.getItem('courses'));
+        }
+
+        return courses;
+    }
+
+    // getCourses'dan aldığı bilgiler ekranda göstericek
+    static displayCourses() {
+        // storage'den gelen veriler
+        const courses = Storage.getCourses();
+        // ui adında nesne oluşturalım
+        const ui = new UI();
+        for (let course of courses) {
+            // local storage'den gelen courses bilgilerini ekranda gösterme
+            ui.addCourseToList(course);
+        }
+    }
+
+    // dişarıdan aldığı course bilgilerini local storage'e ekleme
+    static addCourse(course) {
+        // storage'den gelen veriler
+        const courses = Storage.getCourses();
+        // dişarıdan gelen course bilgisini courses array'ine aktarma
+        courses.push(course);
+        // local storage'e gönderme
+        localStorage.setItem('courses', JSON.stringify(courses));
+    }
+
+    // bulduğu kursu local storage'den silsin
+    static deleteCourse() {
+
+    }
+
+}
+
+// Sayfa Yüklendiğinde (Local Storage)
+document.addEventListener('DOMContentLoaded', Storage.displayCourses);
+
+// Form Submit
 document.querySelector('#new-course').addEventListener('submit',
     function (e) {
 
@@ -80,6 +132,9 @@ document.querySelector('#new-course').addEventListener('submit',
             // add course to list
             ui.addCourseToList(course);
 
+            // save to local storage
+            Storage.addCourse(course);
+
             // clear controls
             ui.clearControls();
 
@@ -93,6 +148,12 @@ document.querySelector('#new-course').addEventListener('submit',
 // delete button click event 
 document.querySelector('#course-list').addEventListener('click', function (e) {
     const ui = new UI();
+    // delete course
     ui.deleteCourse(e.target);
+
+    // delete from local storage
+    Storage.deleteCourse();
+
+    // alert
     ui.showAlert('The course has been deleted', 'danger');
 });
