@@ -1,6 +1,7 @@
 // Course Class
 class Course {
     constructor(title, instructor, image) {
+        this.courseId = Math.floor(Math.random() * 1000);
         this.title = title;
         this.instructor = instructor;
         this.image = image;
@@ -19,7 +20,7 @@ class UI {
                 <td> <img src ="./img/${course.image}"/></td>
                 <td>${course.title}</td>
                 <td>${course.instructor}</td>
-                <td> <a href = "#" class = "btn btn-danger btn-sm delete">Delete</a> </td>
+                <td> <a href = "#" data-id = ${course.courseId} class = "btn btn-danger btn-sm delete">Delete</a> </td>
             </tr>
         `;
         list.innerHTML += html;
@@ -37,6 +38,7 @@ class UI {
     deleteCourse(element) {
         if (element.classList.contains('delete')) {
             element.parentElement.parentElement.remove();
+            return true;
         }
     };
 
@@ -99,8 +101,28 @@ class Storage {
     }
 
     // bulduğu kursu local storage'den silsin
-    static deleteCourse() {
+    static deleteCourse(element) {
+        // delete button
+        if (element.classList.contains('delete')) {
+            // delete button data-id
+            const elementDataId = element.getAttribute('data-id');
+            // storage'den gelen veriler
+            const courses = Storage.getCourses();
 
+            courses.forEach((course, index) => {
+                if (course.courseId == elementDataId) {
+                    courses.splice(index, 1);
+                }
+            });
+
+            // buna bak bi
+            // for (let course in courses) {
+            //     if (course.courseId == elementDataId) {
+            //         courses.splice(course, 1);
+            //     }
+            // }
+            localStorage.setItem('courses', JSON.stringify(courses));
+        }
     }
 
 }
@@ -119,6 +141,7 @@ document.querySelector('#new-course').addEventListener('submit',
 
         // create course object
         const course = new Course(title, instructor, image);
+        console.log(course);
 
         // create ui object
         const ui = new UI();
@@ -149,11 +172,10 @@ document.querySelector('#new-course').addEventListener('submit',
 document.querySelector('#course-list').addEventListener('click', function (e) {
     const ui = new UI();
     // delete course
-    ui.deleteCourse(e.target);
-
-    // delete from local storage
-    Storage.deleteCourse();
-
-    // alert
-    ui.showAlert('The course has been deleted', 'danger');
+    if (ui.deleteCourse(e.target) == true) {
+        // delete from local storage
+        Storage.deleteCourse(e.target);
+        // alert
+        ui.showAlert('The course has been deleted', 'danger');
+    }
 });
