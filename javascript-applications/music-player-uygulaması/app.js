@@ -52,12 +52,12 @@ play.addEventListener('click', () => {
 
 const musicPlay = () => {
     container.classList.add('playing');
-    play.classList = 'fa-solid fa-pause';
+    play.querySelector('i').classList = 'fa-solid fa-pause';
     audio.play();
 };
 const musicPause = () => {
     container.classList.remove('playing');
-    play.classList = 'fa-solid fa-play';
+    play.querySelector('i').classList = 'fa-solid fa-play';
     audio.pause();
 };
 // play button End
