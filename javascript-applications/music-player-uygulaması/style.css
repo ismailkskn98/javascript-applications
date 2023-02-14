@@ -3,3 +3,7 @@
     color: purple;
     margin-right: 20px;
 }
+
+#controls i {
+    cursor: pointer;
+}
