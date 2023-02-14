@@ -12,7 +12,8 @@
     margin-bottom: 20px;
 }
 
-#progress .times {
+#progress .times,
+#controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,4 +25,9 @@
 
 #music-image {
     width: 100%;
+}
+
+i,
+input {
+    cursor: pointer;
 }
