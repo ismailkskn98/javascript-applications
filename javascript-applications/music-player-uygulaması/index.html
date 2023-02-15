@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary btn-sm">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#music-list">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="volume-container">
@@ -50,7 +50,14 @@
                     <input type="range" id="volume-bar" max="100" value="100" class="form-range">
                 </div>
             </div>
-
+            <div id="music-list" class="collapse">
+                <ul class="list-group list-group-flush">
+                    <!-- <li class="list-group-item">
+                        <span>Boşver - Nilüfer</span>
+                        <span class="badge bg-primary rounded-pill">3:40</span>
+                    </li> -->
+                </ul>
+            </div>
         </div>
     </div>
 

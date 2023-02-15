@@ -11,7 +11,8 @@ body {
 
 #progress .times,
 .card-footer,
-.volume-container {
+.volume-container,
+.list-group-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,6 +23,11 @@ body {
 }
 
 i,
-input {
+input,
+li {
     cursor: pointer;
+}
+
+.list-group-item span {
+    pointer-events: none;
 }
